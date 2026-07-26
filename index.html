@@ -143,16 +143,16 @@
     }
     .logo {
       font-family: var(--font-d); font-size: 21px; font-weight: 800;
-      letter-spacing: -0.02em; color: var(--ink);
+      letter-spacing: -0.02em; color: #fff; transition: color 0.35s;
     }
-    
-    .logo span { font-style: italic; color: var(--terra); }
-    
+    .header.scrolled .logo { color: var(--ink); }
+    .logo span { font-style: italic; color: rgba(255,255,255,0.75); transition: color 0.35s; }
+    .header.scrolled .logo span { color: var(--terra); }
 
     .nav { display: flex; align-items: center; gap: 32px; }
     .nav a {
       font-size: 14px; font-weight: 500;
-      color: var(--ink-2); transition: color 0.2s;
+      color: rgba(255,255,255,0.9); transition: color 0.2s;
       position: relative;
     }
     .nav a:not(.nav-cta)::after {
@@ -162,8 +162,8 @@
       transition: transform 0.35s var(--ease-out);
     }
     .nav a:not(.nav-cta):hover::after { transform: scaleX(1); transform-origin: left; }
-    
-    .nav a:hover { color: var(--ink); }
+    .header.scrolled .nav a { color: var(--ink-2); }
+    .nav a:hover { color: #fff; }
     .header.scrolled .nav a:hover { color: var(--ink); }
     .nav-cta {
       background: var(--terra); color: #fff !important;
@@ -181,10 +181,10 @@
     }
     .hamburger span {
       display: block; width: 22px; height: 2px;
-      background: var(--ink); border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s, background 0.35s;
     }
-    
+    .header.scrolled .hamburger span { background: var(--ink); }
 
     .nav-mobile {
       display: none; position: fixed; inset: 74px 0 0 0;
@@ -206,83 +206,70 @@
     }
 
     /* ─────────── HERO — parallax + máscara ─────────── */
-    .hero { padding: 96px 0 0; }
-    .hero-card {
-      max-width: var(--ancho); margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; align-items: stretch;
-      background: var(--sand);
-      border-radius: 30px; overflow: hidden;
-    }
+    .hero { position: relative; min-height: 94svh; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-pic { position: absolute; inset: 0; z-index: 0; }
+    .hero-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 22%; }
+
+    .hero-content { position: relative; z-index: 2; width: 100%; max-width: var(--ancho); margin: 0 auto; padding: 130px var(--gap) 64px; }
     .hero-txt {
-      padding: clamp(40px, 4.6vw, 72px);
-      display: flex; flex-direction: column; justify-content: center;
+      max-width: 560px;
+      background: rgba(20,16,14,0.42);
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 24px;
+      padding: clamp(32px, 3.4vw, 48px);
     }
-    .hero-pic { position: relative; min-height: 480px; overflow: hidden; }
-    .hero-pic img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; object-position: 58% 25%;
-    }
-    .hero-float {
-      position: absolute; z-index: 2;
-      background: rgba(255,255,255,0.9); backdrop-filter: blur(14px);
-      border-radius: 16px; padding: 14px 18px;
-      box-shadow: 0 12px 30px -10px rgba(25,22,19,0.25);
-    }
-    .hero-float-a { bottom: 28px; left: 24px; }
-    .hero-float-b { top: 32px; right: 24px; }
-    .hf-num { font-family: var(--font-d); font-size: 22px; font-weight: 800; color: var(--terra); letter-spacing: -0.02em; line-height: 1; margin-bottom: 3px; }
-    .hf-lab { font-size: 11px; font-weight: 600; color: var(--ink-2); line-height: 1.35; max-width: 130px; }
 
     .hero-pill {
       display: inline-flex; align-self: flex-start; align-items: center; gap: 9px;
-      background: var(--white);
-      border: 1px solid rgba(25,22,19,0.09);
-      color: var(--ink-2); font-size: 12.5px; font-weight: 600;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; font-size: 12.5px; font-weight: 600;
       padding: 9px 18px; border-radius: 999px;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
       opacity: 0; animation: fadeUp 0.8s var(--ease-out) 0.1s forwards;
     }
-    .hero-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--terra); }
+    .hero-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #F09CAB; }
 
     .hero-h1 {
-      font-size: clamp(38px, 4.4vw, 58px);
-      font-weight: 800; line-height: 1.08;
+      font-size: clamp(34px, 3.6vw, 46px);
+      font-weight: 800; line-height: 1.12;
       letter-spacing: -0.03em;
-      color: var(--ink);
-      margin-bottom: 22px;
+      color: #fff;
+      margin-bottom: 18px;
       opacity: 0; animation: fadeUp 0.95s var(--ease-out) 0.22s forwards;
     }
-    .hero-h1 em { font-style: italic; color: var(--terra); }
+    .hero-h1 em { font-style: italic; color: #F09CAB; }
 
     .hero-sub {
-      font-size: clamp(15.5px, 1.2vw, 17.5px);
-      line-height: 1.72;
-      color: var(--ink-2);
-      max-width: 480px; margin-bottom: 32px;
+      font-size: clamp(14.5px, 1.05vw, 16px);
+      line-height: 1.68;
+      color: rgba(255,255,255,0.9);
+      max-width: 440px; margin-bottom: 26px;
       opacity: 0; animation: fadeUp 0.95s var(--ease-out) 0.38s forwards;
     }
     .hero-ctas {
-      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px;
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;
       opacity: 0; animation: fadeUp 0.95s var(--ease-out) 0.54s forwards;
     }
     .btn-glass {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      background: transparent; color: var(--ink);
-      font-size: 15px; font-weight: 600;
-      padding: 16px 30px; border-radius: 999px;
-      border: 1px solid rgba(25,22,19,0.22);
+      background: transparent; color: #fff;
+      font-size: 14.5px; font-weight: 600;
+      padding: 15px 26px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.4);
       transition: background 0.25s, border-color 0.25s;
-      min-height: 52px;
+      min-height: 48px;
     }
-    .btn-glass:hover { background: var(--white); border-color: var(--ink); }
+    .btn-glass:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
     .hero-trust {
-      display: flex; gap: 20px; flex-wrap: wrap;
+      display: flex; gap: 18px; flex-wrap: wrap;
       opacity: 0; animation: fadeUp 0.95s var(--ease-out) 0.7s forwards;
     }
     .trust-chip {
       display: inline-flex; align-items: center; gap: 7px;
-      color: var(--ink-2); font-size: 12.5px; font-weight: 600;
+      color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
     }
     .trust-chip svg { flex: none; }
 
@@ -492,7 +479,7 @@
     /* ─────────── MÁS VENDIDOS ─────────── */
     .top-wrap { border-top: 1px solid rgba(25,22,19,0.1); }
     .top-row {
-      display: grid; grid-template-columns: 62px 1fr auto;
+      display: grid; grid-template-columns: 62px 1fr auto auto;
       gap: 24px; align-items: center;
       padding: 26px 6px;
       border-bottom: 1px solid rgba(25,22,19,0.1);
@@ -522,6 +509,11 @@
       white-space: nowrap; text-align: right;
     }
     .top-badge strong { display: block; font-family: var(--font-d); font-size: 19px; color: var(--ink); letter-spacing: -0.02em; }
+    .top-arrow {
+      font-size: 17px; color: var(--ink-3);
+      transition: transform 0.3s var(--ease-out), color 0.3s;
+    }
+    .top-row:hover .top-arrow { color: var(--terra); transform: translateX(4px); }
     .top-foot {
       display: flex; justify-content: space-between; align-items: center;
       gap: 20px; flex-wrap: wrap; margin-top: 30px;
@@ -796,10 +788,9 @@
     @media (max-width: 960px) {
       .nav { display: none; }
       .hamburger { display: flex; }
-      .hero { padding: 88px 0 0; }
-      .hero-card { grid-template-columns: 1fr; border-radius: 22px; }
-      .hero-txt { padding: 36px var(--gap) 32px; }
-      .hero-pic { min-height: 340px; order: -1; }
+      .hero { min-height: 88svh; }
+      .hero-content { padding: 100px var(--gap) 48px; }
+      .hero-txt { max-width: 100%; }
       .hero-ctas { flex-direction: column; width: 100%; }
       .btn-p, .btn-glass { width: 100%; }
       .datos-strip { grid-template-columns: 1fr 1fr; }
@@ -808,6 +799,7 @@
       .edit-img { min-height: 300px; }
       .top-row { grid-template-columns: 46px 1fr; }
       .top-badge { display: none; }
+      .top-arrow { display: none; }
       .tl-list { grid-template-columns: 1fr 1fr; }
       .iherb-grid { grid-template-columns: 1fr 1fr; }
       .prod-grid { grid-template-columns: 1fr 1fr; }
@@ -817,7 +809,7 @@
       .sticky-cta { display: block; }
     }
     @media (max-width: 620px) {
-      .hero-float { display: none; }
+      .hero-pic img { object-position: 68% 20%; }
       .datos { padding: 76px 0 16px; }
       .datos-strip { grid-template-columns: 1fr 1fr; gap: 10px; }
       .perfiles-grid { grid-template-columns: 1fr; }
@@ -864,8 +856,11 @@
 
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <div class="hero-card fu">
-    <div class="hero-txt">
+  <div class="hero-pic">
+    <img src="img/hero-1.jpg" alt="Mujer en su rutina de la manana, tomando decisiones informadas" loading="eager" onerror="this.style.display='none'">
+  </div>
+  <div class="hero-content">
+    <div class="hero-txt fu">
       <p class="hero-pill">Guía editorial de suplementos · Chile</p>
       <h1 class="hero-h1">Tu día ya es exigente. <em>Cuidarte no debería serlo.</em></h1>
       <p class="hero-sub">
@@ -877,34 +872,23 @@
       </div>
       <div class="hero-trust">
         <span class="trust-chip">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#C93B54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#F09CAB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Criterio independiente
         </span>
         <span class="trust-chip">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#C93B54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#F09CAB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Envío verificado a Chile
         </span>
         <span class="trust-chip">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#C93B54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#F09CAB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Gratis · Sin registro
         </span>
-      </div>
-    </div>
-    <div class="hero-pic">
-      <img src="img/hero-1.jpg" alt="Mujer en su rutina de la manana, tomando decisiones informadas" loading="eager" onerror="this.style.display='none'">
-      <div class="hero-float hero-float-a">
-        <p class="hf-num">68%</p>
-        <p class="hf-lab">de las mujeres tiene déficit de magnesio</p>
-      </div>
-      <div class="hero-float hero-float-b">
-        <p class="hf-num">4</p>
-        <p class="hf-lab">productos verificados, disponibles hoy</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DATOS -->
+<!-- DATOS ->
 <section class="datos" id="datos" style="background:var(--white)">
   <div class="datos-blob datos-blob-a"></div>
   <div class="datos-blob datos-blob-b"></div>
@@ -1091,7 +1075,7 @@
     </div>
 
     <div class="top-wrap fu">
-      <div class="top-row st" style="--i:0">
+      <a class="top-row st" href="https://www.iherb.com/pr/now-foods-magnesium-glycinate-180-tablets-100-mg-per-tablet/88819" target="_blank" rel="nofollow noopener noreferrer" style="--i:0">
         <span class="top-num">01</span>
         <div class="top-main">
           <span class="top-cat">Magnesio</span>
@@ -1099,9 +1083,10 @@
           <p class="top-nota">El más vendido de toda la categoría de suplementos. Dos marcas distintas ocupan los dos primeros lugares del ranking.</p>
         </div>
         <span class="top-badge"><strong>39K+</strong>reseñas</span>
-      </div>
+        <span class="top-arrow blog-arrow">→</span>
+      </a>
 
-      <div class="top-row st" style="--i:1">
+      <a class="top-row st" href="https://www.iherb.com/pr/california-gold-nutrition-vitamin-d3-k2-as-mk-7-180-veggie-capsules/124745" target="_blank" rel="nofollow noopener noreferrer" style="--i:1">
         <span class="top-num">02</span>
         <div class="top-main">
           <span class="top-cat">Vitaminas</span>
@@ -1109,9 +1094,10 @@
           <p class="top-nota">Dos marcas distintas dentro del top 5. La combinación que más recomiendan los especialistas después de los 40.</p>
         </div>
         <span class="top-badge"><strong>112K+</strong>reseñas</span>
-      </div>
+        <span class="top-arrow blog-arrow">→</span>
+      </a>
 
-      <div class="top-row st" style="--i:2">
+      <a class="top-row st" href="https://www.iherb.com/pr/california-gold-nutrition-omega-800-ultra-concentrated-omega-3-fish-oil-kd-pur-triglyceride-form-90-fish-gelatin-softgels-1-000-mg-per-softgel/85180" target="_blank" rel="nofollow noopener noreferrer" style="--i:2">
         <span class="top-num">03</span>
         <div class="top-main">
           <span class="top-cat">Omega-3</span>
@@ -1119,27 +1105,30 @@
           <p class="top-nota">Casi medio millón de reseñas en un solo producto. Es de lejos el suplemento más evaluado del catálogo.</p>
         </div>
         <span class="top-badge"><strong>487K+</strong>reseñas</span>
-      </div>
+        <span class="top-arrow blog-arrow">→</span>
+      </a>
 
-      <div class="top-row st" style="--i:3">
+      <a class="top-row st" href="https://www.iherb.com/pr/california-gold-nutrition-collagenup-hydrolyzed-marine-collagen-peptides-with-hyaluronic-acid-and-vitamin-c-unflavored-7-26-oz-206-g/64903" target="_blank" rel="nofollow noopener noreferrer" style="--i:3">
         <span class="top-num">04</span>
         <div class="top-main">
           <span class="top-cat">Colágeno</span>
-          <h3 class="top-nombre">Colágeno marino con ácido hialurónico</h3>
+          <h3 class="top-nombre">CollagenUP: colágeno marino + ácido hialurónico</h3>
           <p class="top-nota">Alta demanda real, pero también mucha oferta local en Chile. Vale la pena comparar el precio final antes de pedirlo afuera.</p>
         </div>
         <span class="top-badge"><strong>322K+</strong>reseñas</span>
-      </div>
+        <span class="top-arrow blog-arrow">→</span>
+      </a>
 
-      <div class="top-row st" style="--i:4">
+      <a class="top-row st" href="https://www.iherb.com/pr/california-gold-nutrition-gold-c-usp-grade-vitamin-c-1-000-mg-60-veggie-capsules/61864" target="_blank" rel="nofollow noopener noreferrer" style="--i:4">
         <span class="top-num">05</span>
         <div class="top-main">
           <span class="top-cat">Vitamina C</span>
-          <h3 class="top-nombre">Vitamina C verificada por USP</h3>
+          <h3 class="top-nombre">Gold C: vitamina C grado USP</h3>
           <p class="top-nota">La certificación USP significa que un tercero verificó que el frasco trae lo que la etiqueta promete.</p>
         </div>
         <span class="top-badge"><strong>384K+</strong>reseñas</span>
-      </div>
+        <span class="top-arrow blog-arrow">→</span>
+      </a>
     </div>
 
     <div class="top-foot fu">
