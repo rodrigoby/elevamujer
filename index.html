@@ -902,7 +902,51 @@
 </head>
 <body>
 
+<!-- CSS del botón flotante de compartir -->
+<style>
+  .share-float { position: fixed; right: 20px; bottom: 24px; z-index: 250; }
+  .share-fab {
+    width: 56px; height: 56px; border-radius: 999px; border: none;
+    background: var(--terra); color: #fff; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; box-shadow: var(--shadow-h);
+    transition: background 0.25s, transform 0.25s var(--ease-out);
+  }
+  .share-fab:hover { background: var(--terra-h); transform: translateY(-2px); }
+  .share-menu {
+    position: absolute; right: 0; bottom: 68px; background: var(--white);
+    border-radius: var(--r); box-shadow: var(--shadow-h); padding: 8px;
+    display: flex; flex-direction: column; gap: 4px; min-width: 168px;
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  }
+  .share-menu.open { opacity: 1; visibility: visible; transform: translateY(0); }
+  .share-opt {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    border-radius: 12px; font-size: 14.5px; font-weight: 600; color: var(--ink);
+    background: none; border: none; cursor: pointer; text-align: left;
+    font-family: var(--font-s); width: 100%;
+  }
+  .share-opt:hover { background: var(--sand); }
+  .share-ico { font-size: 16px; }
+  @media (max-width: 720px) { .share-float { right: 14px; bottom: 18px; } }
+</style>
+
 <div class="progress" id="progress"></div>
+
+<!-- BOTÓN FLOTANTE: COMPARTIR -->
+<div class="share-float" id="shareFloat">
+  <button class="share-fab" id="shareFab" aria-label="Compartir ElevaMujer" aria-expanded="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 8a3 3 0 1 0-2.83-4H15a3 3 0 0 0 .05 2.06l-6.2 3.62a3 3 0 1 0 0 4.64l6.2 3.62A3 3 0 1 0 18 16a2.99 2.99 0 0 0-2.83 2H15a3 3 0 0 0 .05-2.06L8.85 12.3a3 3 0 0 0 0-.6l6.2-3.64A3 3 0 0 0 18 8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="share-menu" id="shareMenu">
+    <a class="share-opt" href="https://wa.me/?text=ElevaMujer%3A%20criterio%20real%20para%20elegir%20suplementos%20en%20iHerb%2C%20sin%20perder%20horas%20comparando.%20https%3A%2F%2Felevamujer.cl%2F" id="shareWhatsapp" target="_blank" rel="noopener">
+      <span class="share-ico">💬</span> WhatsApp
+    </a>
+    <button class="share-opt" id="shareCopy">
+      <span class="share-ico">🔗</span> Copiar link
+    </button>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header class="header" id="hdr">
@@ -941,7 +985,7 @@
       <p class="hero-pill">Guía editorial de suplementos · Chile</p>
       <h1 class="hero-h1">Tu día ya es exigente. <em>Cuidarte no debería serlo.</em></h1>
       <p class="hero-sub">
-        Nosotras separamos lo que funciona de lo que es puro marketing, y comparamos precios en iHerb. Tú solo eliges, en minutos.
+        Nosotras separamos lo que funciona de lo que es puro marketing. Tú solo eliges, en minutos.
       </p>
       <div class="hero-ctas">
         <a href="#perfiles" class="btn-p">Encuentra tu punto de partida →</a>
@@ -981,7 +1025,7 @@
     <div class="dato st sp" style="--i:0">
       <p class="dato-num" data-count="50" data-prefix="+" data-suffix="%">0%</p>
       <p class="dato-hook">El agotamiento no es solo del cuerpo.</p>
-      <p class="dato-label">Hay una forma de omega-3, la triglicérida, que tu cuerpo absorbe mucho mejor. Ayuda a sostener la cabeza clara en los días pesados, y casi ninguna etiqueta te dice cuál es.</p>
+      <p class="dato-label">La forma triglicérida del omega-3 se absorbe hasta un 50% mejor que la forma éster etílico, la más común y barata de producir. Ayuda a sostener la cabeza clara en los días pesados, y casi ninguna etiqueta te dice cuál tienes.</p>
       <p class="dato-fuente">Revisión formulación 2025</p>
     </div>
     <div class="dato st sp" style="--i:1">
@@ -1148,7 +1192,7 @@
         <span class="sec-eyebrow">Dato real de iHerb Chile</span>
         <h2 class="sec-titulo">Lo que más<br><em>se está comprando</em></h2>
       </div>
-      <p class="sec-nota">El ranking oficial de iHerb, no nuestra opinión. Cuatro de los cinco primeros están en nuestra selección.</p>
+      <p class="sec-nota">El ranking oficial de iHerb, no nuestra opinión. Tres de los cinco primeros están en nuestra selección.</p>
     </div>
 
     <div class="top-wrap fu">
@@ -1699,6 +1743,51 @@
       if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); cn(); }
     })
   );
+
+  // Botón flotante de compartir
+  (function(){
+    const fab = document.getElementById('shareFab');
+    const menu = document.getElementById('shareMenu');
+    if (!fab || !menu) return;
+    const shareUrl = 'https://elevamujer.cl/';
+    const shareText = 'ElevaMujer: criterio real para elegir suplementos en iHerb, sin perder horas comparando.';
+
+    fab.addEventListener('click', async () => {
+      // En mobile con soporte nativo, usa el share sheet del sistema directamente
+      if (navigator.share && matchMedia('(max-width: 720px)').matches) {
+        try {
+          await navigator.share({ title: 'ElevaMujer', text: shareText, url: shareUrl });
+        } catch(e) { /* usuario canceló, no hacer nada */ }
+        return;
+      }
+      // Si no, abre el menú (WhatsApp / copiar link)
+      const isOpen = menu.classList.toggle('open');
+      fab.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.getElementById('shareWhatsapp').href =
+      'https://wa.me/?text=' + encodeURIComponent(shareText + ' ' + shareUrl);
+
+    document.getElementById('shareCopy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        const opt = document.getElementById('shareCopy');
+        const original = opt.innerHTML;
+        opt.innerHTML = '<span class="share-ico">✓</span> ¡Copiado!';
+        setTimeout(() => { opt.innerHTML = original; menu.classList.remove('open'); }, 1400);
+      } catch(e) {
+        window.prompt('Copia este link:', shareUrl);
+      }
+    });
+
+    // Cerrar el menú al hacer clic afuera
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('shareFloat').contains(e.target)) {
+        menu.classList.remove('open');
+        fab.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
 </script>
 </body>
 </html>
