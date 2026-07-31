@@ -838,18 +838,31 @@
       gap: clamp(36px, 5vw, 84px); align-items: center;
     }
     .stat-num-col {
+      position: relative;
       display: flex; flex-direction: column; align-items: flex-start;
       border-left: 1px solid rgba(255,255,255,0.1);
       padding-left: clamp(24px, 4vw, 56px);
     }
+    .stat-glow {
+      position: absolute; top: 50%; left: 20%; transform: translate(-50%,-50%);
+      width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,59,84,0.35) 0%, rgba(201,59,84,0) 70%);
+      filter: blur(10px); pointer-events: none; z-index: 0;
+    }
     .stat-num {
+      position: relative; z-index: 1;
       font-family: var(--font-d); font-weight: 800;
       font-size: clamp(96px, 11vw, 168px);
       line-height: 0.9; letter-spacing: -0.04em;
       color: var(--terra);
     }
-    .stat-num-of { font-size: 0.4em; color: rgba(240,156,171,0.75); }
-    .stat-fuente { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 18px; line-height: 1.5; }
+    .stat-num-of { font-size: 0.45em; }
+    .stat-label {
+      position: relative; z-index: 1;
+      font-size: 15px; font-weight: 600;
+      color: rgba(255,255,255,0.85); margin-top: 6px; max-width: 200px; line-height: 1.4;
+    }
+    .stat-fuente { position: relative; z-index: 1; font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 20px; line-height: 1.5; }
     .stat-fuente a { color: rgba(255,255,255,0.8); text-decoration: underline; }
     .stat-txt-col .trans-titulo { color: #fff; }
     .stat-txt-col .trans-titulo em { color: #F09CAB; }
@@ -1239,7 +1252,7 @@
 </section>
 
 <!-- INSIGHT: ETAPA HORMONAL -->
-<section class="section" id="etapa" style="padding-top:0;padding-bottom:32px">
+<section class="section" id="etapa" style="padding-top:0">
   <div class="section-inner">
     <div class="stat-card fu">
       <div class="stat-txt-col">
@@ -1252,7 +1265,9 @@
         </div>
       </div>
       <div class="stat-num-col">
-        <span class="stat-num">4<span class="stat-num-of">/10</span></span>
+        <div class="stat-glow"></div>
+        <span class="stat-num">40<span class="stat-num-of">%</span></span>
+        <span class="stat-label">presenta cambios de ánimo en esta etapa</span>
         <span class="stat-fuente">Según el <a href="https://www.acog.org/womens-health/experts-and-stories/the-latest/los-cambios-de-humor-durante-la-perimenopausia-son-reales" target="_blank" rel="noopener">Colegio Americano de Obstetras y Ginecólogos (ACOG)</a></span>
       </div>
     </div>
@@ -1543,7 +1558,7 @@
 </section>
 
 <!-- POR QUÉ IHERB -->
-<section class="section" id="iherb" style="padding-top:0;padding-bottom:0">
+<section class="section" id="iherb" style="padding-bottom:0">
   <div class="section-inner">
     <div class="iherb-card fu">
       <div class="iherb-top">
@@ -1608,7 +1623,7 @@
 </section>
 
 <!-- TRANSPARENCIA -->
-<section class="section" id="trans" style="padding-top:32px;padding-bottom:32px">
+<section class="section" id="trans">
   <div class="section-inner">
     <div class="trans-card fu">
       <h2 class="trans-titulo">Nuestra <em>transparencia</em> es parte del contenido.</h2>
@@ -1628,7 +1643,7 @@
 </section>
 
 <!-- SOBRE -->
-<section class="section" id="sobre" style="padding-top:0;padding-bottom:0">
+<section class="section" id="sobre">
   <div class="section-inner">
     <div class="trans-card trans-card--tint fu">
       <h2 class="trans-titulo">Sobre <em>ElevaMujer</em></h2>
