@@ -136,6 +136,14 @@
         "@type": "Answer",
         "text": "Como la compra se hace directo en iHerb, el soporte de tu pedido —envío, seguimiento, cambios o devoluciones— lo gestiona iHerb directamente. Su equipo de atención al cliente responde en español y tiene devoluciones fáciles dentro de su promesa de calidad."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué significan las certificaciones GMP, NSF, UL e iTested?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Son verificaciones hechas por terceros, no por la propia marca. GMP (Buenas Prácticas de Manufactura) certifica cómo se fabrica el producto: sanidad, control de procesos y trazabilidad. NSF y UL son organismos independientes que auditan las plantas de fabricación. iTested es el programa de iHerb que envía productos a un laboratorio externo para confirmar que el frasco contiene lo que la etiqueta declara, sin metales pesados ni contaminantes."
+      }
     }
   ]
 }
@@ -468,6 +476,30 @@
       color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
     }
     .trust-chip svg { flex: none; }
+
+    .hero-certs {
+      margin-top: 22px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 0; animation: fadeUp 0.95s var(--ease-out) 0.85s forwards;
+    }
+    .cert-label {
+      display: block; font-size: 10.5px; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 10px;
+    }
+    .cert-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cert-badge {
+      display: inline-flex; align-items: center;
+      padding: 5px 12px; border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.9);
+      font-family: var(--font-d); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 620px) {
+      .hero-certs { margin-top: 18px; padding-top: 14px; }
+      .cert-badge { padding: 4px 10px; font-size: 11px; }
+    }
 
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -1036,7 +1068,7 @@
       .st.vis { opacity: 1; transform: translateY(0); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .hero-pill, .hero-h1, .hero-sub, .hero-ctas, .hero-trust { opacity: 1; animation: none; }
+      .hero-pill, .hero-h1, .hero-sub, .hero-ctas, .hero-trust, .hero-certs { opacity: 1; animation: none; }
     }
 
     /* ─────────── RESPONSIVE ─────────── */
@@ -1170,7 +1202,7 @@
       <p class="hero-pill" id="heroPill"><span style="font-size:18px;line-height:1;vertical-align:-2px;margin-right:2px;display:inline-block">🇨🇱</span> Guía de suplementos · Chile</p>
       <h1 class="hero-h1"><span id="heroH1">Tu día ya es exigente. <em>Cuidarte no debería serlo.</em></span></h1>
       <p class="hero-sub">
-        Ya investigamos lo que funciona. Tú solo eliges y sigues con tu día.
+        Cada producto que recomendamos pasó por un laboratorio independiente.
       </p>
       <div class="hero-ctas">
         <a href="#perfiles" class="btn-p">Encuentra tu punto de partida →</a>
@@ -1189,6 +1221,15 @@
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12L2.5 8.5" stroke="#F09CAB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Gratis · Sin registro
         </span>
+      </div>
+      <div class="hero-certs">
+        <span class="cert-label">Certificaciones de las marcas que recomendamos</span>
+        <div class="cert-row">
+          <span class="cert-badge">GMP</span>
+          <span class="cert-badge">NSF</span>
+          <span class="cert-badge">UL</span>
+          <span class="cert-badge">iTested</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1661,6 +1702,16 @@
         </button>
         <div class="faq-a"><div class="faq-a-in">
           <p>Como la compra se hace directo en iHerb, el soporte de tu pedido —envío, seguimiento, cambios o devoluciones— lo gestiona iHerb directamente. Su equipo de atención al cliente responde en español y tiene devoluciones fáciles dentro de su promesa de calidad. <a href="https://www.iherb.com/login" target="_blank" rel="noopener">Inicia sesión para seguir tu pedido en iHerb →</a></p>
+        </div></div>
+      </div>
+
+      <div class="faq-item st" style="--i:9">
+        <button class="faq-q" aria-expanded="false">
+          <span>¿Qué significan las certificaciones GMP, NSF, UL e iTested?</span>
+          <span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-in">
+          <p>Son verificaciones hechas por terceros, no por la propia marca. GMP (Buenas Prácticas de Manufactura) certifica cómo se fabrica el producto: sanidad, control de procesos y trazabilidad. NSF y UL son organismos independientes que auditan las plantas de fabricación. iTested es el programa de iHerb que envía productos a un laboratorio externo para confirmar que el frasco contiene lo que la etiqueta declara, sin metales pesados ni contaminantes.</p>
         </div></div>
       </div>
 
